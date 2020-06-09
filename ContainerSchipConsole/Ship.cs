@@ -6,9 +6,9 @@ namespace ContainerSchipConsole
 {
     class Ship
     {
-        int x { get; set; }
-        int y { get; set; }
-        int z { get; set; }
+        int width { get; set; }
+        int lenght { get; set; }
+        int height { get; set; }
 
         int maxWeightPerSpot = 100;
         int maxWeight { get; set; }
@@ -16,38 +16,38 @@ namespace ContainerSchipConsole
         Row[] rows;
         List<Container> containers = new List<Container>();
 
+        public Ship(int maxWidth, int maxLenght, int maxHeight)
+        {
+            //declare ship dimensions
+            width = maxWidth; lenght = maxLenght; height = maxHeight;
+
+            //calculate maxweight
+            CalculateMaxWeight();
+
+            //create rows
+            rows = new Row[width];
+            for (int x = 0; x < width; x++)
+            {
+                var newRow = new Row(lenght, height);
+                rows[x] = newRow;
+            }
+        }
+
 
         private void CalculateMaxWeight()
         {
-            for (int _x = 0; _x < x; _x++)
+            for (int breeted = 0; breeted < width; breeted++)
             {
-                for (int _y = 0; _y < y; _y++)
+                for (int depth = 0; depth < lenght; depth++)
                 {
                     maxWeight += maxWeightPerSpot;    
                 }
             }
         }
 
-        public Ship(int _x, int _y, int _z)
+        public bool AddToRow(Container container, int breeted, int depth, int height)
         {
-            //declare ship dimensions
-            this.x = _x; this.y = _y; this.z = _z;
-
-            //calculate maxweight
-            CalculateMaxWeight();
-
-            //create rows
-            rows = new Row[_x];
-            for (int x = 0; x < _x ; x++)
-            {
-                var newRow = new Row(x, _y, _z);
-                rows[x] = newRow;
-            }
-        }
-
-        public bool AddToRow(Container container, int x, int y, int z)
-        {
-            if (rows[x].AddToStack(container, y, z))
+            if (rows[breeted].AddToStack(container, depth, height))
             {
                 containers.Add(container);
                 return true;
@@ -73,12 +73,12 @@ namespace ContainerSchipConsole
 
         public int GetHeight()
         {
-            return z;
+            return height;
         }
 
         public int GetDepth()
         {
-            return y;
+            return lenght;
         }
 
         public int GetMaxWeight()
@@ -91,10 +91,10 @@ namespace ContainerSchipConsole
             return containers.Count;
         }
 
-        public void GetDimensions(out int _x, out int _y, out int _z)
+        public void GetDimensions(out int x, out int y, out int z)
         {
             //returns ship dimensions
-            _x = this.x; _y = this.y; _z = this.z;
+            x = width; y = lenght; z = height;
             return;
         }
 

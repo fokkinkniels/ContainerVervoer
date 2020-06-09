@@ -5,7 +5,7 @@ namespace ContainerSchipConsole.Containers
     {
         public DefaultContainer(int _index, int _weight)
         {
-            Type = typeContainer.Default;
+            Type = TypeContainer.Default_Container;
             Index = _index;
             Weight = _weight;
             Placed = false;

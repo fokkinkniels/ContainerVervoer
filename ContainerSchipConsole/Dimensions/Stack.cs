@@ -6,36 +6,35 @@ namespace ContainerSchipConsole.Dimensions
 {
     class Stack
     {
-        int y { get; set; }
-        int z { get; set; }
+        int maxHeight;
 
         Container[] containers;
 
         public Stack(int _y, int _z)
         {
-            this.y = _y; this.z = _z;
+            maxHeight = _z;
 
-            containers = new Container[_z];
-            for (int z = 0; z < _z; z++)
+            containers = new Container[maxHeight];
+            for (int height = 0; height < maxHeight; height++)
             {
-                containers[z] = null;
+                containers[height] = null;
             }
         }
 
-        public bool AddContianer(Container container, int z)
+        public bool AddContainer(Container container, int height)
         {
-            if(containers[z] == null)
+            if(containers[height] == null)
             {
-                containers[z] = container;
+                containers[height] = container;
                 return true;
             }
             else
                 return false;
         }
 
-        public Container GetContainer(int z)
+        public Container GetContainer(int height)
         {
-            return containers[z];
+            return containers[height];
         }
     }
 }

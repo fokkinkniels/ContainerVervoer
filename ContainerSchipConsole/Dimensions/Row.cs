@@ -7,40 +7,34 @@ namespace ContainerSchipConsole.Dimensions
 {
     class Row
     {
-        int x { get; set; }
-        int y { get; set; }
-
         public Stack[] stacks;
 
-        public Row(int _x, int _y, int _z)
+        public Row(int maxLength, int maxHeight)
         {
-            //declare row dimensions
-            this.x = _x; this.y = _y;
-
             //create stacks
-            stacks = new Stack[_y];
-            for (int y = 0; y < _y; y++)
+            stacks = new Stack[maxLength];
+            for (int depth = 0; depth < maxLength; depth++)
             {
-                var newStack = new Stack(y, _z);
-                stacks[y]  = newStack;
+                var newStack = new Stack(depth, maxHeight);
+                stacks[depth]  = newStack;
             }
         }
 
-        public bool AddToStack(Container container, int y, int z)
+        public bool AddToStack(Container container, int depth, int height)
         {
-            if(stacks[y].AddContianer(container, z))
+            if(stacks[depth].AddContainer(container, height))
                 return true;
             else
                 return false;
         }
 
-        public Container GetContainer(int y, int z)
+        public Container GetContainer(int depth, int height)
         {
-            if(y >= stacks.Length || y < 0)
+            if(depth >= stacks.Length || depth < 0)
             {
                 return null;
             }
-            return stacks[y].GetContainer(z);
+            return stacks[depth].GetContainer(height);
         }
     }
 }

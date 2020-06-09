@@ -5,7 +5,7 @@ namespace ContainerSchipConsole.Containers
     {
         public ValuableContainer(int _index, int _weight)
         {
-            Type = typeContainer.valuable;
+            Type = TypeContainer.Valuable_Container;
             Index = _index;
             Weight = _weight;
             Placed = false;

@@ -20,9 +20,8 @@ namespace ContainerSchipConsole
 
         public bool CalculateContainersPos()
         {
-
             List<Container> selectedContainers = new List<Container>();
-            typeContainer type = typeContainer.cooled;
+            TypeContainer type = TypeContainer.Cooled_Container;
             bool toggle = false;
             bool placing = true;
 
@@ -35,7 +34,7 @@ namespace ContainerSchipConsole
             {
                 int counter01 = 0;
 
-                while (!container.Placed)
+                while (!container.GetPlacedStatus())
                 {
                     if (toggle)
                     {
@@ -83,7 +82,7 @@ namespace ContainerSchipConsole
             {
                 int counter = 0;
 
-                while (!container.Placed)
+                while (!container.GetPlacedStatus())
                 {
                     if (toggle)
                     {
@@ -130,11 +129,12 @@ namespace ContainerSchipConsole
                 }
                 return false;
             }
+
             bool PlaceCooled02(Container container)
             {
                 int counter01 = 0;
 
-                while (!container.Placed) {
+                while (!container.GetPlacedStatus()) {
                     if (toggle)
                     {
                         for (int i = ship.GetRows()-1; i > 0 && toggle; i--)
@@ -186,7 +186,7 @@ namespace ContainerSchipConsole
             {
                 int counter = 0;
 
-                while (!container.Placed)
+                while (!container.GetPlacedStatus())
                 {
                     if (toggle)
                     {
@@ -243,8 +243,7 @@ namespace ContainerSchipConsole
                 switch (type)
                 {
 
-
-                    case typeContainer.cooled:
+                    case TypeContainer.Cooled_Container:
                         selectedContainers = FilterContainers(containersList, type);
                         selectedContainers = SortBigToSmall(selectedContainers);
 
@@ -253,12 +252,12 @@ namespace ContainerSchipConsole
                             PlaceCooled02(container);
                         }
 
-                        type = typeContainer.refrigerated_valuable;
+                        type = TypeContainer.RefrigeratedValuable_Container;
                         break;
                     //END OF CASE
 
 
-                    case typeContainer.refrigerated_valuable:
+                    case TypeContainer.RefrigeratedValuable_Container:
 
                         selectedContainers = FilterContainers(containersList, type);
                         selectedContainers = SortBigToSmall(selectedContainers);
@@ -268,12 +267,12 @@ namespace ContainerSchipConsole
                             PlaceCooled02(container);
                         }
 
-                        type = typeContainer.Default;
+                        type = TypeContainer.Default_Container;
                         break;
                     //END OF CASE
 
 
-                    case typeContainer.Default:
+                    case TypeContainer.Default_Container:
                         selectedContainers = FilterContainers(containersList, type);
                         selectedContainers = SortBigToSmall(selectedContainers);
 
@@ -282,12 +281,12 @@ namespace ContainerSchipConsole
                             PlaceUnCooled02(container);
                         }
 
-                        type = typeContainer.valuable;
+                        type = TypeContainer.Valuable_Container;
                         break;
                     //END OF CASE
 
 
-                    case typeContainer.valuable:
+                    case TypeContainer.Valuable_Container:
                         selectedContainers = FilterContainers(containersList, type);
                         selectedContainers = SortBigToSmall(selectedContainers);
 
@@ -296,7 +295,7 @@ namespace ContainerSchipConsole
                             PlaceUnCooled02(container);
                         }
 
-                        type = typeContainer.valuable;
+                        type = TypeContainer.Valuable_Container;
                         placing = false;
                         break;
                 }
@@ -305,36 +304,36 @@ namespace ContainerSchipConsole
             return true;
         }
 
-        private bool PlaceContainer(Container container, int x, int y)
+        private bool PlaceContainer(Container container, int width, int depth)
         {
-            for (int _z = 0; _z < ship.GetHeight(); _z++)
+            for (int height = 0; height < ship.GetHeight(); height++)
             {
-                if(ship.GetContainer(x, y, _z) != null)
+                if(ship.GetContainer(width, depth, height) != null)
                 {
-                    if (ship.GetContainer(x, y, _z).Type == typeContainer.refrigerated_valuable || ship.GetContainer(x, y, _z).Type == typeContainer.valuable)
+                    if (ship.GetContainer(width, depth, height).GetType() == TypeContainer.RefrigeratedValuable_Container || ship.GetContainer(width, depth, height).GetType() == TypeContainer.Valuable_Container)
                     {
                         Program.PrintError("ERR: VALUABLE");
                         return false;
                     }
 
-                    if(!CheckWeight(container, x, y, _z))
+                    if(!CheckWeight(container, width, depth, height))
                     {
                         Program.PrintError("ERR: WEIGHT");
                         return false;
                     }
                 }
 
-                if (ship.GetContainer(x, y + 1, _z) != null)
+                if (ship.GetContainer(width, depth + 1, height) != null)
                 {
-                    if (ship.GetContainer(x, y + 1, _z).Type == typeContainer.valuable || ship.GetContainer(x, y + 1, _z).Type == typeContainer.refrigerated_valuable)
+                    if (ship.GetContainer(width, depth + 1, height).GetType() == TypeContainer.Valuable_Container || ship.GetContainer(width, depth + 1, height).GetType() == TypeContainer.RefrigeratedValuable_Container)
                     {
                         Program.PrintError("ERR: NEXT TO VALUABLE");
                         return false;
                     }
                 }
-                if (ship.GetContainer(x, y - 1, _z) != null)
+                if (ship.GetContainer(width, depth - 1, height) != null)
                 {
-                    if (ship.GetContainer(x, y - 1, _z).Type == typeContainer.valuable || ship.GetContainer(x, y - 1, _z).Type == typeContainer.refrigerated_valuable)
+                    if (ship.GetContainer(width, depth - 1, height).GetType() == TypeContainer.Valuable_Container || ship.GetContainer(width, depth - 1, height).GetType() == TypeContainer.RefrigeratedValuable_Container)
                     {
                         Program.PrintError("ERR: NEXT TO VALUABLE");
                         return false;
@@ -343,35 +342,35 @@ namespace ContainerSchipConsole
 
 
    
-                if(ship.GetContainer(x, y, _z) == null)
+                if(ship.GetContainer(width, depth, height) == null)
                 {
-                    if(container.Type == typeContainer.valuable || container.Type == typeContainer.refrigerated_valuable)
+                    if(container.GetType() == TypeContainer.Valuable_Container || container.GetType() == TypeContainer.RefrigeratedValuable_Container)
                     {
-                        if(ship.GetContainer(x, y + 1, _z)!= null)
+                        if(ship.GetContainer(width, depth + 1, height)!= null)
                         {
                             Program.PrintError("ERR: NEXT TO VALUABLE");
                         }
-                        if (ship.GetContainer(x, y - 1, _z) != null)
+                        if (ship.GetContainer(width, depth - 1, height) != null)
                         {
                             Program.PrintError("ERR: NEXT TO VALUABLE");
                         }
                     }
 
 
-                    if (ship.AddToRow(container, x, y, _z))
+                    if (ship.AddToRow(container, width, depth, height))
                     {
-                        Program.PrintMessage($"placed {container} at index: {x} {y} {_z} with a weight of: {container.Weight}");
-                        container.Placed = true;
-                        container.Index = _z;
+                        Program.PrintMessage($"placed {container} at index: {width} {depth} {height} with a weight of: {container.GetWeight()}");
+                        container.SetPlacedStatus(true);
+                        container.SetIndex(height);
                         return true;
                     }
                     else
                     {
-                        Program.PrintError($"Could not place container at {x} {y} {_z}");
+                        Program.PrintError($"Could not place container at {width} {depth} {height}");
                     }
                 }
             }
-            Program.PrintError($"Could not place container at {x} {y}");
+            Program.PrintError($"Could not place container at {width} {depth}");
             return false;
         }
 
@@ -385,16 +384,16 @@ namespace ContainerSchipConsole
         {
             float weight = 0;
 
-            for (int x = 0; x < ship.GetRows(); x++)
+            for (int width = 0; width < ship.GetRows(); width++)
             {
-                for (int y = 0; y < ship.GetDepth(); y++)
+                for (int depth = 0; depth < ship.GetDepth(); depth++)
                 {
-                    for (int z = 0; z < ship.GetHeight(); z++)
+                    for (int height = 0; height < ship.GetHeight(); height++)
                     {
-                        var container = ship.GetContainer(x, y, z);
+                        var container = ship.GetContainer(width, depth, height);
                         if (container != null)
                         {
-                            weight += container.Weight;
+                            weight += container.GetWeight();
                         }
                     }
                 }
@@ -436,30 +435,30 @@ namespace ContainerSchipConsole
             float weightL = 0;
             float weightR = 0;
             
-            for (int x = 0; x < halfway; x++)
+            for (int width = 0; width < halfway; width++)
                 {
-                    for (int y = 0; y < ship.GetDepth(); y++)
+                    for (int depth = 0; depth < ship.GetDepth(); depth++)
                     {
-                        for (int z = 0; z < ship.GetHeight(); z++)
+                        for (int height = 0; height < ship.GetHeight(); height++)
                         {
-                            var container = ship.GetContainer(x, y, z);
+                            var container = ship.GetContainer(width, depth, height);
                             if(container != null)
                             {
-                                weightL += container.Weight;
+                                weightL += container.GetWeight();
                             }     
                         }
                     }
             }
-            for (int x = (int)halfway; x < rows; x++)
+            for (int width = (int)halfway; width < rows; width++)
             {
-                for (int y = 0; y < ship.GetDepth(); y++)
+                for (int depth = 0; depth < ship.GetDepth(); depth++)
                 {
-                    for (int z = 0; z < ship.GetHeight(); z++)
+                    for (int height = 0; height < ship.GetHeight(); height++)
                     {
-                        var container = ship.GetContainer(x, y, z);
+                        var container = ship.GetContainer(width, depth, height);
                         if (container != null)
                         {
-                            weightR += container.Weight;
+                            weightR += container.GetWeight();
                         }       
                     }
                 }
@@ -506,25 +505,24 @@ namespace ContainerSchipConsole
             }
         }
 
-        private bool CheckWeight(Container container, int x, int y, int z)
+        private bool CheckWeight(Container container, int breeted, int depth, int z)
         {
-            //TOOD: Weight is not added right, dont know where the bug is at yet
-            int weight = 0;
+            int weight;
 
             for (int i = 0; i < ship.GetHeight(); i++)
             {
-                weight = container.Weight;
-                for (int _z = i; _z < ship.GetHeight(); _z++)
+                weight = container.GetWeight();
+                for (int height = i; height < ship.GetHeight(); height++)
                 {
-                    if (ship.GetContainer(x, y, _z) != null)
+                    if (ship.GetContainer(breeted, depth, height) != null)
                     {
-                        weight += ship.GetContainer(x, y, _z).Weight;
+                        weight += ship.GetContainer(breeted, depth, height).GetWeight();
                     }
                 }
 
-                if (ship.GetContainer(x, y, i) != null)
+                if (ship.GetContainer(breeted, depth, i) != null)
                 {
-                    weight -= ship.GetContainer(x, y, i).Weight;
+                    weight -= ship.GetContainer(breeted, depth, i).GetWeight();
                 }
 
                 if (weight > 120)
@@ -550,7 +548,7 @@ namespace ContainerSchipConsole
 
             foreach (var container in unFiltered)
             {
-                if (container.Weight >= weight)
+                if (container.GetWeight() >= weight)
                 {
                     filteredList.Add(container);
                 }
@@ -559,13 +557,13 @@ namespace ContainerSchipConsole
             return filteredList;
         }
 
-        private List<Container> FilterContainers(List<Container> unFiltered, typeContainer type)
+        private List<Container> FilterContainers(List<Container> unFiltered, TypeContainer type)
         {
             List<Container> filteredList = new List<Container>();
 
             foreach (var container in unFiltered)
             {
-                if(container.Type == type)
+                if(container.GetType() == type)
                 {
                     filteredList.Add(container);
                 }
@@ -581,7 +579,7 @@ namespace ContainerSchipConsole
             {
                 for (int v = 1; v < (unSortedList.Count - i); v++)
                 {
-                    if (unSortedList[v - 1].Weight < unSortedList[v].Weight)
+                    if (unSortedList[v - 1].GetWeight() < unSortedList[v].GetWeight())
                     {
                         temp = unSortedList[v - 1];
                         unSortedList[v - 1] = unSortedList[v];
@@ -599,13 +597,13 @@ namespace ContainerSchipConsole
         /// </summary>
 
 
-        public bool CreateShip(int x, int y, int z)
+        public bool CreateShip(int maxWidth, int maxLenght, int maxHeight)
         {
-            ship = new Ship(x, y, z);
+            ship = new Ship(maxWidth, maxLenght, maxHeight);
             return true;
         }
 
-        public bool CreateContainer(int index, int weight, typeContainer type)
+        public bool CreateContainer(int index, int weight, TypeContainer type)
         {
 
             if(weight > 30 || weight < 4)
@@ -614,25 +612,25 @@ namespace ContainerSchipConsole
                 return false;
             }
 
-            if(type == typeContainer.Default)
+            if(type == TypeContainer.Default_Container)
             {
                 var newContainer = new DefaultContainer(index, weight);
                 containersList.Add(newContainer);
                 return true;
             }
-            else if (type == typeContainer.cooled)
+            else if (type == TypeContainer.Cooled_Container)
             {
                 var newContainer = new CooledContainer(index, weight);
                 containersList.Add(newContainer);
                 return true;
             }
-            else if (type == typeContainer.valuable)
+            else if (type == TypeContainer.Valuable_Container)
             {
                 var newContainer = new ValuableContainer(index, weight);
                 containersList.Add(newContainer);
                 return true;
             }
-            else if (type == typeContainer.refrigerated_valuable)
+            else if (type == TypeContainer.RefrigeratedValuable_Container)
             {
                 var newContainer = new ValuableCooledContainer(index, weight);
                 containersList.Add(newContainer);
@@ -663,9 +661,9 @@ namespace ContainerSchipConsole
                 return null;
         }
 
-        public void GetShipDimensions(out int _x, out int _y, out int _z)
+        public void GetShipDimensions(out int width, out int lenght, out int height)
         {
-            ship.GetDimensions(out _x, out _y, out _z);
+            ship.GetDimensions(out width, out lenght, out height);
         }  
     }
 }

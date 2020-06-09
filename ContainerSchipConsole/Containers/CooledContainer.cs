@@ -5,11 +5,10 @@ namespace ContainerSchipConsole.Containers
     {
         public CooledContainer(int _index, int _weight)
         {
-            Type = typeContainer.cooled;
+            Type = TypeContainer.Cooled_Container;
             Index = _index;
             Weight = _weight;
             Placed = false;
-
         }
     }
 }

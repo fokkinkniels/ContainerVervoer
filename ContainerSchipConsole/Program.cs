@@ -14,49 +14,44 @@ namespace ContainerSchipConsole
 
             controller.CreateShip(3, 3, 11);
 
-            controller.CreateContainer(1, 30, typeContainer.cooled);
-            controller.CreateContainer(1, 30, typeContainer.cooled);
-            controller.CreateContainer(1, 30, typeContainer.cooled);
-            controller.CreateContainer(1, 30, typeContainer.cooled);
-            controller.CreateContainer(1, 30, typeContainer.cooled);
-            controller.CreateContainer(1, 30, typeContainer.cooled);
-            controller.CreateContainer(1, 30, typeContainer.cooled);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
 
-            controller.CreateContainer(1, 10, typeContainer.refrigerated_valuable);
-            controller.CreateContainer(1, 10, typeContainer.refrigerated_valuable);
-            controller.CreateContainer(1, 30, typeContainer.refrigerated_valuable);
+            controller.CreateContainer(1, 10, TypeContainer.RefrigeratedValuable_Container);
+            controller.CreateContainer(1, 10, TypeContainer.RefrigeratedValuable_Container);
+            controller.CreateContainer(1, 30, TypeContainer.RefrigeratedValuable_Container);
 
-            controller.CreateContainer(1, 10, typeContainer.Default);
-            controller.CreateContainer(1, 30, typeContainer.Default);
-            controller.CreateContainer(1, 13, typeContainer.Default);
-            controller.CreateContainer(1, 13, typeContainer.Default);
-            controller.CreateContainer(1, 13, typeContainer.Default);
-            controller.CreateContainer(1, 30, typeContainer.Default);
-            controller.CreateContainer(1, 30, typeContainer.Default);
-            controller.CreateContainer(1, 30, typeContainer.Default);
-            controller.CreateContainer(1, 30, typeContainer.Default);
-            controller.CreateContainer(1, 20, typeContainer.Default);
-            controller.CreateContainer(1, 20, typeContainer.Default);
-            controller.CreateContainer(1, 20, typeContainer.Default);
+            controller.CreateContainer(1, 10, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 13, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 13, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 13, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 20, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 20, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 20, TypeContainer.Default_Container);
 
-            controller.CreateContainer(1, 30, typeContainer.Default);
-            controller.CreateContainer(1, 30, typeContainer.Default);
-            controller.CreateContainer(1, 30, typeContainer.Default);
-            controller.CreateContainer(1, 10, typeContainer.Default);
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 10, TypeContainer.Default_Container);
 
-            controller.CreateContainer(1, 10, typeContainer.valuable);
-            controller.CreateContainer(1, 10, typeContainer.valuable);
-            controller.CreateContainer(1, 30, typeContainer.valuable);
+            controller.CreateContainer(1, 10, TypeContainer.Valuable_Container);
+            controller.CreateContainer(1, 10, TypeContainer.Valuable_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);
 
             //END TEST
 
             controller.CalculateContainersPos();
             controller.ValidateShip();
-            
-
-            //PrintContainers();
-            //PrintDimensions();
-
         }
 
         static void PrintDimensions()
@@ -80,7 +75,7 @@ namespace ContainerSchipConsole
                         var container = controller.GetContainer(x, y, z);
 
                         if (container != null)
-                            Console.WriteLine($"The container at {x}  {y} {z} is {container} with a Weight off {container.Weight} ");
+                            Console.WriteLine($"The container at {x}  {y} {z} is {container} with a Weight off {container.GetWeight()} ");
                         else
                             Console.WriteLine($"There is no Container at {x} {y} {z}");
                     }

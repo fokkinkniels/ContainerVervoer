@@ -5,7 +5,7 @@ namespace ContainerSchipConsole.Containers
     {
         public ValuableCooledContainer(int _index, int _weight)
         {
-            Type = typeContainer.refrigerated_valuable;
+            Type = TypeContainer.RefrigeratedValuable_Container;
             Index = _index;
             Weight = _weight;
             Placed = false;
