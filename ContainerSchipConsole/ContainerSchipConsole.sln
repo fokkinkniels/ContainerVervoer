@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ContainerSchipConsole", "ContainerSchipConsole.csproj", "{F05722D8-E619-46AD-98E6-FB2099AF1BDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ContainerSchipConsole", "ContainerSchipConsole.csproj", "{F05722D8-E619-46AD-98E6-FB2099AF1BDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "..\UnitTests\UnitTests.csproj", "{B56D91A4-DF24-455B-934C-F08034069141}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTestsContainerShip", "..\UnitTests\UnitTestsContainerShip.csproj", "{B56D91A4-DF24-455B-934C-F08034069141}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

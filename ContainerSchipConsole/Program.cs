@@ -6,52 +6,126 @@ namespace ContainerSchipConsole
     class Program
     {
         static ShipController controller;
+        static int standartHeight = 100;
 
         static void Main(string[] args)
         {
 
-            ShipController controller = new ShipController();
+            controller = new ShipController();
 
-            controller.CreateShip(3, 3, 11);
+            //standart test
 
-            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            /*            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
 
-            controller.CreateContainer(1, 10, TypeContainer.RefrigeratedValuable_Container);
-            controller.CreateContainer(1, 10, TypeContainer.RefrigeratedValuable_Container);
-            controller.CreateContainer(1, 30, TypeContainer.RefrigeratedValuable_Container);
+                        controller.CreateContainer(1, 10, TypeContainer.RefrigeratedValuable_Container);
+                        controller.CreateContainer(1, 10, TypeContainer.RefrigeratedValuable_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.RefrigeratedValuable_Container);
 
-            controller.CreateContainer(1, 10, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 13, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 13, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 13, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 20, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 20, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 20, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 10, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 13, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 13, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 13, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 20, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 20, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 20, TypeContainer.Default_Container);
 
-            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-            controller.CreateContainer(1, 10, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+                        controller.CreateContainer(1, 10, TypeContainer.Default_Container);
 
-            controller.CreateContainer(1, 10, TypeContainer.Valuable_Container);
-            controller.CreateContainer(1, 10, TypeContainer.Valuable_Container);
-            controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);
+                        controller.CreateContainer(1, 10, TypeContainer.Valuable_Container);
+                        controller.CreateContainer(1, 10, TypeContainer.Valuable_Container);
+                        controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);*/
 
             //END TEST
 
+            GetUserInput();
+
+
             controller.CalculateContainersPos();
             controller.ValidateShip();
+        }
+
+        static void GetUserInput()
+        {
+            Console.WriteLine("PLease enter ship dimensions:");
+            Console.Write("What is the ships width? :");
+            int x = Int32.Parse( Console.ReadLine());
+            Console.Write("What is the ships depth? :");
+            int y = Int32.Parse(Console.ReadLine());
+
+            controller.CreateShip(x, y, standartHeight);
+
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("Please enter all containers now (first weight and then type)");
+            Console.WriteLine("default container: D");
+            Console.WriteLine("cooled container: C");
+            Console.WriteLine("valuable container: V");
+            Console.WriteLine("cooled valuable container: RE");
+            Console.WriteLine("so an default container with weight of 10 is '10D'");
+            Console.WriteLine();
+
+            Console.WriteLine("type Done to stop");
+
+            bool gettingInput = true;
+            while (gettingInput)
+            {
+                TypeContainer type = TypeContainer.Default_Container;
+                string input = Console.ReadLine();
+                string b = string.Empty;
+                int weight = 0;
+
+                //exits
+                if (input.Contains("Done") || input.Contains("done") || input.Contains("DONE"))
+                {
+                    gettingInput = false;
+                    break;
+                }
+
+
+                for (int i = 0; i < input.Length; i++)
+                {
+                    if (Char.IsDigit(input[i]))
+                        b += input[i];
+                }
+
+                if (b.Length > 0)
+                {
+                    weight = int.Parse(b);
+                }
+
+                if (input.Contains("D") || input.Contains("d"))
+                {
+                    type = TypeContainer.Default_Container;
+                }
+                else if (input.Contains("RE") || input.Contains("re"))
+                {
+                    type = TypeContainer.RefrigeratedValuable_Container;
+                }
+                else if (input.Contains("V") || input.Contains("v"))
+                {
+                    type = TypeContainer.Valuable_Container;
+                }
+                else if (input.Contains("C") || input.Contains("c"))
+                {
+                    type = TypeContainer.Cooled_Container;
+                }
+
+                controller.CreateContainer(1, weight, type);
+            }
         }
 
         static void PrintDimensions()

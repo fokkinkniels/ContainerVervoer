@@ -505,7 +505,7 @@ namespace ContainerSchipConsole
             }
         }
 
-        private bool CheckWeight(Container container, int breeted, int depth, int z)
+        private bool CheckWeight(Container container, int width, int depth, int z)
         {
             int weight;
 
@@ -514,15 +514,15 @@ namespace ContainerSchipConsole
                 weight = container.GetWeight();
                 for (int height = i; height < ship.GetHeight(); height++)
                 {
-                    if (ship.GetContainer(breeted, depth, height) != null)
+                    if (ship.GetContainer(width, depth, height) != null)
                     {
-                        weight += ship.GetContainer(breeted, depth, height).GetWeight();
+                        weight += ship.GetContainer(width, depth, height).GetWeight();
                     }
                 }
 
-                if (ship.GetContainer(breeted, depth, i) != null)
+                if (ship.GetContainer(width, depth, i) != null)
                 {
-                    weight -= ship.GetContainer(breeted, depth, i).GetWeight();
+                    weight -= ship.GetContainer(width, depth, i).GetWeight();
                 }
 
                 if (weight > 120)

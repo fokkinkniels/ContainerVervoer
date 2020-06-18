@@ -33,10 +33,9 @@ namespace ContainerSchipConsole
             }
         }
 
-
         private void CalculateMaxWeight()
         {
-            for (int breeted = 0; breeted < width; breeted++)
+            for (int _width = 0; _width < width; _width++)
             {
                 for (int depth = 0; depth < lenght; depth++)
                 {
@@ -45,9 +44,9 @@ namespace ContainerSchipConsole
             }
         }
 
-        public bool AddToRow(Container container, int breeted, int depth, int height)
+        public bool AddToRow(Container container, int _width, int depth, int height)
         {
-            if (rows[breeted].AddToStack(container, depth, height))
+            if (rows[_width].AddToStack(container, depth, height))
             {
                 containers.Add(container);
                 return true;
