@@ -9,7 +9,13 @@ namespace ContainerSchipConsole
 {
     public class ShipController
     {
-        Ship ship { get; set; }
+        private Ship ship;
+        public Ship CurrentShip
+        {
+            get { return ship; }
+        }
+
+
         List<Container> containersList = new List<Container>();
 
 
@@ -25,72 +31,24 @@ namespace ContainerSchipConsole
             bool toggle = false;
             bool placing = true;
 
-            int counter02 = 0;
             int x; int y;
             x = y = 0;
 
 
-            bool PlaceCooled01(Container container)
+            bool PlaceCooled02(Container container)
             {
                 int counter01 = 0;
-
-                while (!container.GetPlacedStatus())
-                {
-                    if (toggle)
-                    {
-                        for (int i = ship.GetRows() - 1; i > 0 && toggle; i--)
-                        {
-                            if (PlaceContainer(container, i, y))
-                            {
-                                counter02++;
-                                toggle = !toggle;
-                                return true;
-                            }
-                        }
-                        counter01++;
-                    }
-                    else if (!toggle)
-                    {
-
-                        for (int i = 0; i < ship.GetRows() && !toggle; i++)
-                        {
-                            if (PlaceContainer(container, i, y))
-                            {
-                                counter02++;
-                                //toggle = !toggle;
-                                if (counter02 == 2)
-                                {
-                                    toggle = !toggle;
-                                    counter02 = 0;
-                                }
-                                return true;
-                            }
-                        }
-                        counter01++;
-                    }
-                    toggle = !toggle;
-
-                    if (counter01 > ship.GetRows())
-                    {
-                        break;
-                    }
-                }
-
-                return false;
-            }
-            bool PlaceUnCooled01(Container container)
-            {
                 int counter = 0;
 
                 while (!container.GetPlacedStatus())
                 {
                     if (toggle)
                     {
-                        for (int x = ship.GetRows() - 1; x > 0 && toggle; x--)
+                        for (int i = ship.GetRows() - 1; i >= ship.GetRows() / 2 && toggle; i--)
                         {
-                            for (int _y = 1; _y < ship.GetDepth(); _y++)
+                            if(ship.GetContainer(i, y, counter) == null)
                             {
-                                if (PlaceContainer(container, x, _y))
+                                if (PlaceContainer(container, i, y))
                                 {
                                     toggle = !toggle;
                                     return true;
@@ -98,81 +56,26 @@ namespace ContainerSchipConsole
                             }
                         }
                         counter++;
+                        counter01++;
                     }
                     else if (!toggle)
                     {
 
-                        for (int x = 0; x < ship.GetRows() && !toggle; x++)
+                        for (int i = 0; i <= ship.GetRows()/2 && !toggle; i++)
                         {
-                            for (int _y = 0; _y < ship.GetDepth(); _y++)
+                            if (ship.GetContainer(i, y, counter) == null)
                             {
-                                if (PlaceContainer(container, x, _y))
-                                {
-                                    //toggle = !toggle;
-                                    if (counter02 == 2)
-                                    {
-                                        toggle = !toggle;
-                                        counter02 = 0;
-                                    }
+                                if (PlaceContainer(container, i, y))
+                                {                              
+                                    toggle = !toggle;
                                     return true;
                                 }
                             }
                         }
                         counter++;
-                    }
-                    toggle = !toggle;
-
-                    if (counter > ship.GetRows() * ship.GetDepth())
-                    {
-                        break;
-                    }
-                }
-                return false;
-            }
-
-            bool PlaceCooled02(Container container)
-            {
-                int counter01 = 0;
-
-                while (!container.GetPlacedStatus()) {
-                    if (toggle)
-                    {
-                        for (int i = ship.GetRows()-1; i > 0 && toggle; i--)
-                        {
-                            if(PlaceContainer(container, i, y))
-                            {
-                                counter02++;
-                                //toggle = !toggle;
-                                if (counter02 == 2)
-                                {
-                                    toggle = !toggle;
-                                    counter02 = 0;
-                                }
-                                return true;
-                            }
-                        }
                         counter01++;
                     }
-                    else if (!toggle)
-                    {
-
-                        for (int i = 0; i < ship.GetRows() && !toggle; i++)
-                        {
-                            if (PlaceContainer(container, i, y))
-                            {
-                                counter02++;
-                                //toggle = !toggle;
-                                if (counter02 == 2)
-                                {
-                                    toggle = !toggle;
-                                    counter02 = 0;
-                                }
-                                return true;
-                            }
-                        }
-                        counter01++;
-                    }
-                    toggle = !toggle;
+                    //toggle = !toggle;
 
                     if (counter01 > ship.GetRows())
                     {
@@ -185,59 +88,61 @@ namespace ContainerSchipConsole
             bool PlaceUnCooled02(Container container)
             {
                 int counter = 0;
+                int counter01 = 0;
 
                 while (!container.GetPlacedStatus())
                 {
                     if (toggle)
                     {
-                        for (int x = ship.GetRows() - 1; x > 0 && toggle; x--)
+                        for (int x = ship.GetRows() - 1; x >= ship.GetRows() / 2 && toggle; x--)
                         {
                             for (int _y = 1; _y < ship.GetDepth(); _y++)
                             {
-                                if (PlaceContainer(container, x, _y))
+                                if (ship.GetContainer(x, _y, counter01) == null)
                                 {
-                                    //toggle = !toggle;
-                                    if (counter02 == 2)
+                                    if (PlaceContainer(container, x, _y))
                                     {
                                         toggle = !toggle;
-                                        counter02 = 0;
+                                        return true;
                                     }
-                                    return true;
                                 }
                             }
                         }
                         counter++;
+                        counter01++;
+
                     }
                     else if (!toggle)
                     {
 
-                        for (int x = 0; x < ship.GetRows() && !toggle; x++)
+                        for (int x = 0; x < ship.GetRows() / 2 && !toggle; x++)
                         {
                             for (int _y = 0; _y < ship.GetDepth(); _y++)
                             {
-                                if (PlaceContainer(container, x, _y))
+                                if (ship.GetContainer(x, _y, counter01) == null)
                                 {
-                                    //toggle = !toggle;
-                                    if (counter02 == 2)
+                                    if (PlaceContainer(container, x, _y))
                                     {
                                         toggle = !toggle;
-                                        counter02 = 0;
+                                        return true;
                                     }
-                                    return true;
                                 }
                             }
                         }
                         counter++;
+                        counter01++;
+
                     }
                     toggle = !toggle;
 
-                    if (counter > ship.GetRows()*ship.GetDepth())
+                    if (counter > ship.GetRows() * ship.GetDepth())
                     {
                         break;
-                    }                
+                    }
                 }
                 return false;
             }
+
 
             while (placing) {
                 switch (type)
@@ -350,7 +255,7 @@ namespace ContainerSchipConsole
                         {
                             Program.PrintError("ERR: NEXT TO VALUABLE");
                         }
-                        if (ship.GetContainer(width, depth - 1, height) != null)
+                        else if (ship.GetContainer(width, depth - 1, height) != null)
                         {
                             Program.PrintError("ERR: NEXT TO VALUABLE");
                         }
@@ -435,7 +340,7 @@ namespace ContainerSchipConsole
             float weightL = 0;
             float weightR = 0;
             
-            for (int width = 0; width < halfway; width++)
+            for (int width = 0; width <= halfway; width++)
                 {
                     for (int depth = 0; depth < ship.GetDepth(); depth++)
                     {
@@ -449,13 +354,13 @@ namespace ContainerSchipConsole
                         }
                     }
             }
-            for (int width = (int)halfway; width < rows; width++)
+            for (float width = rows; width >= halfway; width--)
             {
                 for (int depth = 0; depth < ship.GetDepth(); depth++)
                 {
                     for (int height = 0; height < ship.GetHeight(); height++)
                     {
-                        var container = ship.GetContainer(width, depth, height);
+                        var container = ship.GetContainer((int)MathF.Ceiling(width), depth, height);
                         if (container != null)
                         {
                             weightR += container.GetWeight();
@@ -465,7 +370,7 @@ namespace ContainerSchipConsole
             }
 
 
-            float difference = 100*(weightL/weightR);
+            float difference = (weightL/weightR);
 
             if(difference > 120 || difference < 80)
             {

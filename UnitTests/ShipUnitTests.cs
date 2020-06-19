@@ -48,6 +48,7 @@ namespace UnitTestsContainerShip
 
             //Action
             controller.CalculateContainersPos();
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
 
             //Assert
             Assert.AreEqual(controller.ValidateShip(), true);
@@ -64,6 +65,7 @@ namespace UnitTestsContainerShip
 
             controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
             controller.CreateContainer(1, 30, TypeContainer.RefrigeratedValuable_Container);
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
 
             //Action
             controller.CalculateContainersPos();
@@ -85,6 +87,7 @@ namespace UnitTestsContainerShip
             controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);
             controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);
             controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
 
             //Action
             controller.CalculateContainersPos();
@@ -106,6 +109,7 @@ namespace UnitTestsContainerShip
             controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
             controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
             controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
 
 
             //Action
@@ -129,6 +133,7 @@ namespace UnitTestsContainerShip
             controller.CreateContainer(1, 30, TypeContainer.RefrigeratedValuable_Container);
             controller.CreateContainer(1, 30, TypeContainer.RefrigeratedValuable_Container);
 
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
 
             //Action
             controller.CalculateContainersPos();
@@ -151,6 +156,7 @@ namespace UnitTestsContainerShip
             controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);
             controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);
 
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
 
             //Action
             controller.CalculateContainersPos();
@@ -177,6 +183,7 @@ namespace UnitTestsContainerShip
             controller.CreateContainer(1, 30, TypeContainer.Default_Container);
             controller.CreateContainer(1, 30, TypeContainer.Default_Container);
             controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
 
             //Action
             controller.CalculateContainersPos();
@@ -204,6 +211,7 @@ namespace UnitTestsContainerShip
             controller.CreateContainer(1, 5, TypeContainer.Default_Container);
 
 
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
 
             //Action
             controller.CalculateContainersPos();
@@ -257,6 +265,8 @@ namespace UnitTestsContainerShip
             controller.CreateContainer(1, 10, TypeContainer.Valuable_Container);
             controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);
 
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
+
             //Action
             controller.CalculateContainersPos();
 
@@ -294,6 +304,8 @@ namespace UnitTestsContainerShip
 
             controller.CreateContainer(1, 11, TypeContainer.Valuable_Container);
 
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
+
             //Action
             controller.CalculateContainersPos();
 
@@ -326,6 +338,8 @@ namespace UnitTestsContainerShip
             controller.CreateContainer(1, 5, TypeContainer.Default_Container);
    
             controller.CreateContainer(1, 27, TypeContainer.Valuable_Container);
+
+            Console.WriteLine(UrlFabricator.GenerateShip(controller.CurrentShip));
 
             //Action
             controller.CalculateContainersPos();

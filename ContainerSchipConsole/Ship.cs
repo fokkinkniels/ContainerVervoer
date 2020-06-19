@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace ContainerSchipConsole
 {
-    class Ship
+    public class Ship
     {
         int width { get; set; }
         int lenght { get; set; }
         int height { get; set; }
 
-        int maxWeightPerSpot = 100;
+        int maxWeightPerSpot = 150;
         int maxWeight { get; set; }
 
         Row[] rows;

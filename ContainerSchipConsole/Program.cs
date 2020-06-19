@@ -12,50 +12,31 @@ namespace ContainerSchipConsole
         {
 
             controller = new ShipController();
+            controller.CreateShip(2, 2, 100);
 
             //standart test
 
-            /*            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Cooled_Container);
 
-                        controller.CreateContainer(1, 10, TypeContainer.RefrigeratedValuable_Container);
-                        controller.CreateContainer(1, 10, TypeContainer.RefrigeratedValuable_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.RefrigeratedValuable_Container);
 
-                        controller.CreateContainer(1, 10, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 13, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 13, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 13, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 20, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 20, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 20, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 30, TypeContainer.RefrigeratedValuable_Container);
+            controller.CreateContainer(1, 30, TypeContainer.RefrigeratedValuable_Container);
 
-                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Default_Container);
-                        controller.CreateContainer(1, 10, TypeContainer.Default_Container);
-
-                        controller.CreateContainer(1, 10, TypeContainer.Valuable_Container);
-                        controller.CreateContainer(1, 10, TypeContainer.Valuable_Container);
-                        controller.CreateContainer(1, 30, TypeContainer.Valuable_Container);*/
-
-            //END TEST
-
-            GetUserInput();
-
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
+            controller.CreateContainer(1, 30, TypeContainer.Default_Container);
 
             controller.CalculateContainersPos();
-            controller.ValidateShip();
+
+
+
+            string url = UrlFabricator.GenerateShip(controller.CurrentShip);
+
+            SendUrl.SendCustomUrl(url);
+            //System.Diagnostics.Process.Start();
+
         }
 
         static void GetUserInput()
